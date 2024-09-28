@@ -1,0 +1,74 @@
+@use "../../assets/css/global.scss";
+
+.register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100dvh;
+  background-color: global.$bg-primary;
+  padding: 48px 32px 30px 32px;
+  gap: 103px;
+  @include global.desktop {
+    flex-direction: row;
+    padding: 80px 120px;
+  }
+  &__left {
+    display: none;
+    @include global.desktop {
+      display: flex;
+
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  &__logo-mobile {
+    @include global.desktop {
+      display: none;
+    }
+  }
+  &__logo-desktop {
+    width: 314px;
+    height: 50px;
+    margin-bottom: 16px;
+  }
+  &__person {
+    width: 386px;
+    height: 386px;
+  }
+  &__heading {
+    margin: 16px 113px 26px 113px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 24px;
+    @include global.desktop {
+      text-align: left;
+      margin: 0 0 24px 0;
+    }
+  }
+  &__input-box {
+    width: 304px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    @include global.desktop {
+      align-items: center;
+      gap: 4px;
+    }
+  }
+  &__button-box {
+    text-align: center;
+  }
+  &__button {
+    margin: 12px 0 24px 0;
+    @include global.desktop {
+      margin: 24px 0;
+    }
+  }
+  &__text {
+    display: block;
+    font-weight: 700;
+    font-size: 16px;
+  }
+}

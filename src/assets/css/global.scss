@@ -1,0 +1,13 @@
+$break-point-desktop: 1024px;
+$font-noto-sans-tc: "Noto Sans TC";
+$text-primary: #333333;
+$text-secondary: #555555;
+$text-input: #9f9a91;
+$text-error: #d87355;
+$bg-primary: #ffd370;
+
+@mixin desktop {
+  @media (min-width: $break-point-desktop) {
+    @content;
+  }
+}

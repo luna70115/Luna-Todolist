@@ -1,0 +1,12 @@
+@use "../../assets/css/global.scss";
+.button {
+  padding: 12px 48px;
+
+  height: 47px;
+  gap: 10px;
+  background-color: global.$text-primary;
+  color: #ffff;
+  border-radius: 10px;
+  font-weight: 700;
+  font-family: global.$font-noto-sans-tc;
+}

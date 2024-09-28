@@ -1,0 +1,124 @@
+@use "../../assets/css/global.scss";
+
+.todolist {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background-color: global.$bg-primary;
+  @include global.desktop {
+    background: linear-gradient(
+      172.7deg,
+      #ffd370 5.12%,
+      #ffd370 53.33%,
+      #ffd370 53.44%,
+      #ffffff 53.45%,
+      #ffffff 94.32%
+    );
+  }
+  &__browse {
+    display: flex;
+    align-items: center;
+    gap: 40.49px;
+    margin: 16px 32px 0 32px;
+  }
+  &__browse-logo {
+    width: 242.51px;
+    height: 38.45px;
+  }
+  &__browse-box {
+    display: flex;
+  }
+  &__browse-name {
+    display: none;
+    @include global.desktop {
+      display: flex;
+      margin: 24px;
+      font-size: 16px;
+      font-weight: 700px;
+    }
+  }
+
+  &__browse-out {
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+.add {
+  display: flex;
+  justify-content: center;
+  width: 311px;
+  height: 47px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 15px 0px #00000026;
+  &__input {
+    width: 270px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+
+    font-size: 16px;
+    color: global.$text-input;
+    margin: 12px 16px;
+  }
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 39px;
+    border-radius: 10px;
+    background-color: global.$text-primary;
+    margin: 4px 4px 4px 4px;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 40px;
+  }
+}
+
+.card {
+  display: block;
+  justify-content: center;
+  width: 312px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px 0px #00000026;
+  &__tab {
+    display: flex;
+    text-align: center;
+
+    font-weight: 700;
+    color: global.$text-input;
+  }
+  &__tab-state {
+    width: 104px;
+    padding: 16px;
+    border-bottom: solid 2px global.$text-input;
+  }
+}
+
+// .list {
+//   display: flex;
+//   position: relative;
+//   padding: 23px 16px 16px 16px;
+//   &__list {
+//     list-style: none;
+//   }
+//   &__task {
+//     padding-left: 16px;
+//     font-size: 14px;
+//     font-weight: 400;
+//     color: global.$text-primary;
+//   }
+//   &__delete {
+//     position: absolute;
+//     right: 0;
+//     top: 0;
+//     margin: 16px;
+//     width: 16px;
+//     height: 16px;
+//   }
+// }

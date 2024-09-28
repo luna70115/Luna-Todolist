@@ -1,0 +1,34 @@
+@use "./global.scss";
+:root {
+  --text-primary: #{global.$text-primary};
+  --text-secondary: #{global.$text-secondary};
+  --bg-primary: #{global.$bg-primary};
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.5;
+  color: var(--text-primary);
+  word-break: break-word;
+  font-family: global.$font-noto-sans-tc;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+
+  &:visited {
+    color: unset;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+}
