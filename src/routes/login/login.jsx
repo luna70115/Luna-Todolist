@@ -10,7 +10,7 @@ import { Input } from "../../ui/input/input";
 import { Button } from "../../ui/button/button";
 import "./style.scss";
 
-const LonginSchema = z.object({
+const LoginSchema = z.object({
   email: z.string().email({ message: "請輸入您的信箱" }),
   password: z.string().min(6, { message: "請輸入您的密碼" }),
 });
@@ -21,7 +21,7 @@ export function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(LonginSchema),
+    resolver: zodResolver(LoginSchema),
   });
   const navigate = useNavigate();
   const onSubmit = (data) => {
@@ -42,15 +42,15 @@ export function Login() {
       });
   };
   return (
-    <div className="longin">
-      <div className="longin__left">
-        <img className="longin__logo-desktop" src={logo} alt="" />
-        <img className="longin__person" src={blackPerson} alt="" />
+    <div className="login">
+      <div className="login__left">
+        <img className="login__logo-desktop" src={logo} alt="" />
+        <img className="login__person" src={blackPerson} alt="" />
       </div>
-      <div className="longin__right">
-        <img className="longin__logo-mobile" src={logo} alt="" />
-        <h1 className="longin__heading">最實用的線上代辦事項服務</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="longin__input-box">
+      <div className="login__right">
+        <img className="login__logo-mobile" src={logo} alt="" />
+        <h1 className="login__heading">最實用的線上代辦事項服務</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className="login__input-box">
           <Input
             label="Email"
             placeholder="請輸入Email"
@@ -63,11 +63,11 @@ export function Login() {
             error={errors.password?.message}
             {...register("password")}
           />
-          <div className="longin__button-box">
-            <Button text="登入" className="longin__button">
+          <div className="login__button-box">
+            <Button text="登入" className="login__button">
               登入
             </Button>
-            <Link to={"/register"} className="longin__text">
+            <Link to={"/register"} className="login__text">
               註冊帳號
             </Link>
           </div>
