@@ -1,7 +1,10 @@
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { RegisterApiSchema } from "../../api/register";
+import { fetcher } from "../../api/fetcher";
 import logo from "../../assets/img/logo.svg";
 import blackPerson from "../../assets/img/black-person.png";
 import { Input } from "../../ui/input/input";
@@ -11,11 +14,8 @@ import "./style.scss";
 const RegisterSchema = z
   .object({
     email: z.string().email({ message: "無效的信箱，請重新輸入" }),
-    nickname: z.string().max(8, { message: "暱稱不得超過8個字" }),
-    password: z
-      .string()
-      .min(5, { message: "暱稱不得小於5個字" })
-      .max(20, { message: "暱稱不得超過20個字" }),
+    nickname: z.string().min(1, { message: "密碼最少要1個字" }),
+    password: z.string().min(6, { message: "密碼最少要6個字" }),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -24,6 +24,7 @@ const RegisterSchema = z
   });
 
 export function Register() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -31,8 +32,28 @@ export function Register() {
   } = useForm({
     resolver: zodResolver(RegisterSchema),
   });
-  const onSubmit = (data) => console.log(data);
-  console.log(errors);
+
+  const onSubmit = (data) => {
+    const rawData = {
+      user: {
+        email: data.email,
+        nickname: data.nickname,
+        password: data.password,
+      },
+    };
+    const apiData = RegisterApiSchema.parse(rawData);
+    fetcher({ url: "/users", method: "post", data: apiData })
+      .then((response) => {
+        console.log(response);
+        alert("註冊成功");
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("註冊失敗");
+      });
+  };
+
   return (
     <div className="register">
       <div className="register__left">
@@ -47,29 +68,29 @@ export function Register() {
           <Input
             label="Email"
             placeholder="請輸入Email"
-            error="error"
+            error={errors.email?.message}
             {...register("email")}
           />
 
           <Input
             label="您的暱稱"
-            placeholder="請輸入暱稱"
-            error="error"
+            placeholder="請輸入您的暱稱"
+            error={errors.nickname?.message}
             {...register("nickname")}
           />
 
           <Input
             label="密碼"
             placeholder="請輸入密碼"
-            error="error"
+            error={errors.password?.message}
             {...register("password")}
           />
 
           <Input
             label="再次輸入密碼"
             placeholder="請再次輸入密碼"
-            error="error"
             {...register("confirmPassword")}
+            error={errors.confirmPassword?.message}
           />
 
           <div className="register__button-box">
