@@ -9,7 +9,7 @@
   height: 100dvh;
   background-color: global.$bg-primary;
   padding: 48px 32px 28px 32px;
-  gap: 106px;
+  gap: 104px;
   @include global.desktop {
     flex-direction: row;
     padding: 80px 120px;
@@ -31,22 +31,15 @@
     }
   }
   &__logo-desktop {
-    width: 312px;
-    height: 48px;
     margin-bottom: 16px;
   }
-  &__person {
-    width: 386px;
-    height: 386px;
-  }
   &__heading {
-    margin: 16px 31px 32px 31px;
+    margin: 16px 30px 32px 30px;
     text-align: center;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 24px;
 
     @include global.desktop {
-      font-size: 24px;
       text-align: left;
       margin: 0 0 24px 0;
     }
@@ -60,7 +53,6 @@
     }
   }
   &__button-box {
-    display: block;
     text-align: center;
   }
 

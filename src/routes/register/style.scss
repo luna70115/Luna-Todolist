@@ -9,7 +9,7 @@
   height: 100dvh;
   background-color: global.$bg-primary;
   padding: 48px 32px 30px 32px;
-  gap: 103px;
+  gap: 104px;
   @include global.desktop {
     flex-direction: row;
     padding: 80px 120px;
@@ -29,16 +29,11 @@
     }
   }
   &__logo-desktop {
-    width: 314px;
-    height: 50px;
     margin-bottom: 16px;
   }
-  &__person {
-    width: 386px;
-    height: 386px;
-  }
+
   &__heading {
-    margin: 16px 113px 26px 113px;
+    margin: 16px 112px 26px 112px;
     text-align: center;
     font-weight: 700;
     font-size: 24px;
@@ -48,7 +43,6 @@
     }
   }
   &__input-box {
-    width: 304px;
     display: flex;
     flex-direction: column;
     gap: 16px;

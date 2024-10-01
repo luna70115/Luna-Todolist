@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { fetcher } from "../../api/fetcher";
+import { LoginApiSchema } from "../../api/login";
 import logo from "../../assets/img/logo.svg";
 import blackPerson from "../../assets/img/black-person.png";
 import { Input } from "../../ui/input/input";
@@ -16,6 +17,7 @@ const LoginSchema = z.object({
 });
 
 export function Login() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -23,7 +25,6 @@ export function Login() {
   } = useForm({
     resolver: zodResolver(LoginSchema),
   });
-  const navigate = useNavigate();
   const onSubmit = (data) => {
     const rawData = {
       user: {
@@ -31,7 +32,8 @@ export function Login() {
         password: data.password,
       },
     };
-    fetcher({ url: "users/sign_in", method: "post", data: rawData })
+    const apiData = LoginApiSchema.parse(rawData);
+    fetcher({ url: "users/sign_in", method: "post", data: apiData })
       .then((response) => {
         console.log(response);
         navigate("/todo-list");
@@ -41,6 +43,7 @@ export function Login() {
         alert("登入失敗");
       });
   };
+
   return (
     <div className="login">
       <div className="login__left">
