@@ -28,6 +28,9 @@ const RegisterSchema = z
 export function Register() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -52,8 +55,10 @@ export function Register() {
       })
       .catch((error) => {
         console.log(error);
-        alert("註冊失敗");
+        setIsError(true);
       });
+
+    setIsSending(true);
   };
 
   return (
@@ -65,11 +70,11 @@ export function Register() {
       <div className="register__right">
         <img className="register__logo-mobile" src={logo} alt="" />
         <h1 className="register__heading">註冊帳號</h1>
-        {/* 表單送出時設定input 按鈕不能按 */}
         <form onSubmit={handleSubmit(onSubmit)} className="register__input-box">
           <Input
             label="Email"
             placeholder="請輸入Email"
+            disabled={isSending}
             error={errors.email?.message}
             {...register("email")}
           />
@@ -77,6 +82,7 @@ export function Register() {
           <Input
             label="您的暱稱"
             placeholder="請輸入您的暱稱"
+            disabled={isSending}
             error={errors.nickname?.message}
             {...register("nickname")}
           />
@@ -84,6 +90,7 @@ export function Register() {
           <Input
             label="密碼"
             placeholder="請輸入密碼"
+            disabled={isSending}
             error={errors.password?.message}
             {...register("password")}
           />
@@ -92,6 +99,7 @@ export function Register() {
             label="再次輸入密碼"
             placeholder="請再次輸入密碼"
             {...register("confirmPassword")}
+            disabled={isSending}
             error={errors.confirmPassword?.message}
           />
 
@@ -110,6 +118,15 @@ export function Register() {
         bodyText={"即將轉導至登入頁"}
         onConfirm={() => {
           navigate("/login");
+        }}
+      />
+      <Modal
+        isOpen={isError}
+        headerText={"註冊失敗"}
+        bodyText={"請再重新註冊"}
+        onConfirm={() => {
+          setIsError(false);
+          setIsSending(false);
         }}
       />
     </div>
