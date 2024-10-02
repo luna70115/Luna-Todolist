@@ -6,11 +6,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { RegisterApiSchema } from "../../api/register";
 import { fetcher } from "../../api/fetcher";
-import logo from "../../assets/img/logo.svg";
-import blackPerson from "../../assets/img/black-person.png";
 import { Input } from "../../ui/input/input";
 import { Button } from "../../ui/button/button";
 import { Modal } from "../../ui/modal/modal";
+import logo from "../../assets/img/logo.svg";
+import blackPerson from "../../assets/img/black-person.png";
 import "./style.scss";
 
 const RegisterSchema = z
@@ -26,9 +26,9 @@ const RegisterSchema = z
   });
 export function Register() {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [isSending, setIsSending] = useState(false);
+  const [isOpenSuccessModal, setIsOpenSuccessModal] = useState(false);
+  const [isOpenErrorModal, setisOpenErrorModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -48,14 +48,15 @@ export function Register() {
     fetcher({ url: "/users", method: "post", data: apiData })
       .then((response) => {
         console.log(response);
-        setIsOpen(true);
+        setIsOpenSuccessModal(true);
       })
       .catch((error) => {
         console.log(error);
-        setIsError(true);
-      });
+        setisOpenErrorModal(true);
+      })
+      .finally(() => setIsLoading(false));
 
-    setIsSending(true);
+    setIsLoading(true);
   };
   return (
     <div className="register">
@@ -70,21 +71,21 @@ export function Register() {
           <Input
             label="Email"
             placeholder="請輸入Email"
-            disabled={isSending}
+            disabled={isLoading}
             error={errors.email?.message}
             {...register("email")}
           />
           <Input
             label="您的暱稱"
             placeholder="請輸入您的暱稱"
-            disabled={isSending}
+            disabled={isLoading}
             error={errors.nickname?.message}
             {...register("nickname")}
           />
           <Input
             label="密碼"
             placeholder="請輸入密碼"
-            disabled={isSending}
+            disabled={isLoading}
             error={errors.password?.message}
             {...register("password")}
           />
@@ -92,11 +93,13 @@ export function Register() {
             label="再次輸入密碼"
             placeholder="請再次輸入密碼"
             {...register("confirmPassword")}
-            disabled={isSending}
+            disabled={isLoading}
             error={errors.confirmPassword?.message}
           />
           <div className="register__button-box">
-            <Button className="register__button">註冊帳號</Button>
+            <Button className="register__button" isLoading={isLoading}>
+              註冊帳號
+            </Button>
             <Link to={`/login`} className="register__text">
               登入
             </Link>
@@ -104,7 +107,7 @@ export function Register() {
         </form>
       </div>
       <Modal
-        isOpen={isOpen}
+        isOpen={isOpenSuccessModal}
         headerText={"註冊成功"}
         bodyText={"即將轉導至登入頁"}
         onConfirm={() => {
@@ -112,12 +115,11 @@ export function Register() {
         }}
       />
       <Modal
-        isOpen={isError}
+        isOpen={isOpenErrorModal}
         headerText={"註冊失敗"}
         bodyText={"請再重新註冊"}
         onConfirm={() => {
-          setIsError(false);
-          setIsSending(false);
+          setisOpenErrorModal(false);
         }}
       />
     </div>

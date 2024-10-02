@@ -6,11 +6,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { fetcher } from "../../api/fetcher";
 import { LoginApiSchema } from "../../api/login";
-import logo from "../../assets/img/logo.svg";
-import blackPerson from "../../assets/img/black-person.png";
 import { Input } from "../../ui/input/input";
 import { Button } from "../../ui/button/button";
 import { Modal } from "../../ui/modal/modal";
+import logo from "../../assets/img/logo.svg";
+import blackPerson from "../../assets/img/black-person.png";
 import "./style.scss";
 
 const LoginSchema = z.object({
@@ -18,8 +18,8 @@ const LoginSchema = z.object({
   password: z.string().min(6, { message: "請輸入您的密碼" }),
 });
 export function Login() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [isOpenErrorModal, setisOpenErrorModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -39,13 +39,14 @@ export function Login() {
     fetcher({ url: "users/sign_in", method: "post", data: apiData })
       .then((response) => {
         console.log(response);
-        setIsOpen(true);
         navigate("/todo-list");
       })
       .catch((error) => {
         console.log(error);
-        setIsError(true);
-      });
+        setisOpenErrorModal(true);
+      })
+      .finally(() => setIsLoading(false));
+    setIsLoading(true);
   };
   return (
     <div className="login">
@@ -60,17 +61,19 @@ export function Login() {
           <Input
             label="Email"
             placeholder="請輸入Email"
+            disabled={isLoading}
             error={errors.email?.message}
             {...register("email")}
           />
           <Input
             label="Password"
             placeholder="請輸入密碼"
+            disabled={isLoading}
             error={errors.password?.message}
             {...register("password")}
           />
           <div className="login__button-box">
-            <Button text="登入" className="login__button">
+            <Button text="登入" className="login__button" isLoading={isLoading}>
               登入
             </Button>
             <Link to={"/register"} className="login__text">
@@ -79,20 +82,13 @@ export function Login() {
           </div>
         </form>
       </div>
+
       <Modal
-        isOpen={isOpen}
-        headerText={"登入成功"}
-        bodyText={"即將轉導至您的Todo-List頁"}
-        onConfirm={() => {
-          navigate("/todo-list");
-        }}
-      />
-      <Modal
-        isOpen={isError}
+        isOpen={isOpenErrorModal}
         headerText={"登入失敗"}
         bodyText={"請重新輸入"}
         onConfirm={() => {
-          setIsError(false);
+          setisOpenErrorModal(false);
         }}
       />
     </div>

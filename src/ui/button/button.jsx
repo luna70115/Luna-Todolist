@@ -1,7 +1,11 @@
 import "./style.scss";
-export function Button({ children, className = "", ...rest }) {
+export function Button({ isLoading, children, className = "", ...rest }) {
   return (
-    <button {...rest} className={`button ${className}`}>
+    <button
+      {...rest}
+      className={`button ${className} ${isLoading && `button__loading`}`}
+      disabled={isLoading}
+    >
       {children}
     </button>
   );

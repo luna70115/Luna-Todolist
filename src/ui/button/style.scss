@@ -1,7 +1,6 @@
 @use "../../assets/css/global.scss";
 .button {
   padding: 12px 48px;
-
   height: 47px;
   gap: 10px;
   background-color: global.$text-primary;
@@ -9,4 +8,13 @@
   border-radius: 10px;
   font-weight: 700;
   font-family: global.$font-noto-sans-tc;
+
+  &__loading {
+    background-color: gray;
+    border: solid gray;
+  }
+}
+
+.button:hover {
+  color: global.$bg-primary;
 }
