@@ -2,6 +2,7 @@ import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { RegisterApiSchema } from "../../api/register";
 import { fetcher } from "../../api/fetcher";
@@ -9,6 +10,7 @@ import logo from "../../assets/img/logo.svg";
 import blackPerson from "../../assets/img/black-person.png";
 import { Input } from "../../ui/input/input";
 import { Button } from "../../ui/button/button";
+import { Modal } from "../../ui/modal/modal";
 import "./style.scss";
 
 const RegisterSchema = z
@@ -25,6 +27,7 @@ const RegisterSchema = z
 
 export function Register() {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
   const {
     register,
     handleSubmit,
@@ -45,8 +48,7 @@ export function Register() {
     fetcher({ url: "/users", method: "post", data: apiData })
       .then((response) => {
         console.log(response);
-        alert("註冊成功");
-        navigate("/login");
+        setIsOpen(true);
       })
       .catch((error) => {
         console.log(error);
@@ -63,7 +65,7 @@ export function Register() {
       <div className="register__right">
         <img className="register__logo-mobile" src={logo} alt="" />
         <h1 className="register__heading">註冊帳號</h1>
-
+        {/* 表單送出時設定input 按鈕不能按 */}
         <form onSubmit={handleSubmit(onSubmit)} className="register__input-box">
           <Input
             label="Email"
@@ -101,6 +103,15 @@ export function Register() {
           </div>
         </form>
       </div>
+      {/* 處理註冊失敗的modal */}
+      <Modal
+        isOpen={isOpen}
+        headerText={"註冊成功"}
+        bodyText={"即將轉導至登入頁"}
+        onConfirm={() => {
+          navigate("/login");
+        }}
+      />
     </div>
   );
 }

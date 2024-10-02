@@ -22,25 +22,6 @@ export function Todolist() {
           +
         </button>
       </div>
-      {/* <div className="card">
-        <ul className="card__tab">
-          <li className="card__tab-state">全部</li>
-          <li className="card__tab-state">待完成</li>
-          <li className="card__tab-state">已完成</li>
-        </ul>
-        <div className="list">
-          <li className="list__list">
-            <label htmlFor="">
-              <input className="list__checkbox" type="checkbox" />
-              <span className="list__task">把冰箱發霉的檸檬拿去丟</span>
-            </label>
-
-            <a className="list__delete" href="">
-              X
-            </a>
-          </li>
-        </div>
-      </div> */}
     </div>
   );
 }
