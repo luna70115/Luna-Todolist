@@ -17,7 +17,6 @@ const LoginSchema = z.object({
   email: z.string().email({ message: "請輸入您的信箱" }),
   password: z.string().min(6, { message: "請輸入您的密碼" }),
 });
-
 export function Login() {
   const [isOpen, setIsOpen] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -48,7 +47,6 @@ export function Login() {
         setIsError(true);
       });
   };
-
   return (
     <div className="login">
       <div className="login__left">

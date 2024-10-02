@@ -24,13 +24,11 @@ const RegisterSchema = z
     message: "密碼不符，請重新輸入",
     path: ["confirmPassword"],
   });
-
 export function Register() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isSending, setIsSending] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -38,7 +36,6 @@ export function Register() {
   } = useForm({
     resolver: zodResolver(RegisterSchema),
   });
-
   const onSubmit = (data) => {
     const rawData = {
       user: {
@@ -60,7 +57,6 @@ export function Register() {
 
     setIsSending(true);
   };
-
   return (
     <div className="register">
       <div className="register__left">
@@ -78,7 +74,6 @@ export function Register() {
             error={errors.email?.message}
             {...register("email")}
           />
-
           <Input
             label="您的暱稱"
             placeholder="請輸入您的暱稱"
@@ -86,7 +81,6 @@ export function Register() {
             error={errors.nickname?.message}
             {...register("nickname")}
           />
-
           <Input
             label="密碼"
             placeholder="請輸入密碼"
@@ -94,7 +88,6 @@ export function Register() {
             error={errors.password?.message}
             {...register("password")}
           />
-
           <Input
             label="再次輸入密碼"
             placeholder="請再次輸入密碼"
@@ -102,7 +95,6 @@ export function Register() {
             disabled={isSending}
             error={errors.confirmPassword?.message}
           />
-
           <div className="register__button-box">
             <Button className="register__button">註冊帳號</Button>
             <Link to={`/login`} className="register__text">
@@ -111,7 +103,6 @@ export function Register() {
           </div>
         </form>
       </div>
-      {/* 處理註冊失敗的modal */}
       <Modal
         isOpen={isOpen}
         headerText={"註冊成功"}
