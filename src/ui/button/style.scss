@@ -8,13 +8,15 @@
   border-radius: 10px;
   font-weight: 700;
   font-family: global.$font-noto-sans-tc;
-
-  &__loading {
-    background-color: gray;
-    border: solid gray;
+  &:hover {
+    background-color: #3d7e3b;
+    border: solid 2px #3d7e3b;
   }
-}
-
-.button:hover {
-  color: global.$bg-primary;
+  &:disabled {
+    background-color: #808080;
+    border: solid #808080;
+  }
+  &:active {
+    border: ridge 6px #3d7e3b;
+  }
 }
