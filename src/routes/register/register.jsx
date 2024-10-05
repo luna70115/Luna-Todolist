@@ -97,7 +97,7 @@ export function Register() {
             error={errors.confirmPassword?.message}
           />
           <div className="register__button-box">
-            <Button className="register__button" isLoading={isLoading}>
+            <Button className="register__button" disabled={isLoading}>
               註冊帳號
             </Button>
             <Link to={`/login`} className="register__text">
