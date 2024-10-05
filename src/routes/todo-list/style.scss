@@ -49,19 +49,19 @@
     font-size: 14px;
     font-weight: 400;
   }
-}
-.add {
-  display: flex;
-  justify-content: center;
-  border-radius: 10px;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 15px 0px #00000026;
-  @include global.desktop {
-    width: 500px;
-    justify-content: space-between;
+  &__add {
+    display: flex;
+    justify-content: center;
+    width: 312px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 15px 0px #00000026;
+    @include global.desktop {
+      width: 500px;
+      justify-content: space-between;
+    }
   }
-
-  &__input {
+  &__add-input {
     width: 270px;
     outline: none;
     border: none;
@@ -70,7 +70,7 @@
     color: global.$text-input;
     margin: 12px 16px;
   }
-  &__button {
+  &__add-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -83,25 +83,150 @@
     color: #ffffff;
     font-size: 40px;
   }
-}
-
-.card {
-  display: block;
-  justify-content: center;
-  width: 312px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0px 0px 15px 0px #00000026;
+  &__card {
+    width: 312px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+    @include global.desktop {
+      width: 500px;
+    }
+  }
+  &__content {
+    padding: 24px 16px;
+    @include global.desktop {
+      padding: 24px 24px;
+    }
+  }
   &__tab {
     display: flex;
     text-align: center;
-
-    font-weight: 700;
-    color: global.$text-input;
+    color: gray;
+    font-size: 14px;
   }
-  &__tab-state {
-    width: 104px;
-    padding: 16px;
-    border-bottom: solid 2px global.$text-input;
+  &__li {
+    padding: 1rem;
+    width: 100%;
+    border-bottom: 2px solid #dddddd;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-top: 16px;
+  }
+  &__footer-a {
+    color: gray;
+    text-decoration: none;
+  }
+}
+.active {
+  border-bottom: 2px solid black;
+  color: black;
+  font-weight: bold;
+}
+
+.list {
+  li {
+    position: relative;
+    padding-right: 2rem;
+    @media (max-width: 575px) {
+      padding-right: 0;
+    }
+    a.delete {
+      position: absolute;
+      opacity: 0;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      text-decoration: none;
+      color: black;
+      display: block;
+      width: 1rem;
+      height: 1rem;
+      background: #000;
+      background-image: url("https://i.imgur.com/7Q4RjFx.jpg");
+      background-size: contain;
+      @media (max-width: 575px) {
+        opacity: 1;
+        width: 12px;
+        height: 12px;
+      }
+    }
+    &:hover a.delete {
+      opacity: 1;
+    }
+  }
+}
+
+.checkbox {
+  position: relative;
+  user-select: none;
+  width: 100%;
+  display: block;
+  padding-left: 44px;
+  font-size: 14px;
+  cursor: pointer;
+  span {
+    display: block;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eeeeee;
+    line-height: 1.5;
+  }
+
+  span::before {
+    content: "";
+    position: absolute;
+    left: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%) scale(1);
+    height: 20px;
+    width: 20px;
+    border-radius: 5px;
+    border: 1px solid black;
+    pointer-events: none;
+    transition: 0.3s ease;
+  }
+  span::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 27%;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 0.5rem;
+    border-radius: 1px;
+    border-bottom: 3px solid hwb(32 0% 0%);
+    border-right: 3px solid #ff8800;
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.3s ease;
+  }
+
+  input:checked {
+    ~ span {
+      color: gray;
+      text-decoration: line-through;
+    }
+    ~ span::before {
+      border-color: transparent;
+      transform: translateY(-50%) scale(0);
+    }
+    ~ span::after {
+      opacity: 1;
+    }
+  }
+  input {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    margin: 0;
   }
 }

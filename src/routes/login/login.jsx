@@ -17,6 +17,7 @@ const LoginSchema = z.object({
   email: z.string().email({ message: "請輸入您的信箱" }),
   password: z.string().min(6, { message: "請輸入您的密碼" }),
 });
+
 export function Login() {
   const [isOpenErrorModal, setisOpenErrorModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +37,12 @@ export function Login() {
       },
     };
     const apiData = LoginApiSchema.parse(rawData);
-    fetcher({ url: "users/sign_in", method: "post", data: apiData })
+
+    fetcher({
+      url: "users/sign_in",
+      method: "POST",
+      data: apiData,
+    })
       .then((response) => {
         console.log(response);
         navigate("/todo-list");
@@ -73,7 +79,7 @@ export function Login() {
             {...register("password")}
           />
           <div className="login__button-box">
-            <Button text="登入" className="login__button" isLoading={isLoading}>
+            <Button text="登入" className="login__button" disabled={isLoading}>
               登入
             </Button>
             <Link to={"/register"} className="login__text">
