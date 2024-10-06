@@ -111,7 +111,7 @@ export function Register() {
         headerText={"註冊成功"}
         bodyText={"即將轉導至登入頁"}
         onConfirm={() => {
-          navigate("/login");
+          navigate("/");
         }}
       />
       <Modal

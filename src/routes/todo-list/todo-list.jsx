@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import logo from "../../assets/img/logo.svg";
 import personTwo from "../../assets/img/black-person-two.png";
 import "./style.scss";
-
 const TodoSchema = z.object({
   list: z.string(),
 });
@@ -25,6 +24,7 @@ export function Todolist() {
   });
 
   function addTodo({ list }) {
+    if (!list) return;
     setTodolist([
       ...todolist,
       { id: nextId.current++, list: list, checked: false },
@@ -53,7 +53,7 @@ export function Todolist() {
           <img className="todolist__browse-logo" src={logo} alt="" />
           <div className="todolist__browse-box">
             <p className="todolist__browse-name">王小明的代辦</p>
-            <Link to={`/login`} className="todolist__browse-out">
+            <Link to={`/`} className="todolist__browse-out">
               登出
             </Link>
           </div>

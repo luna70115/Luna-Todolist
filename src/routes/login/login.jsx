@@ -17,7 +17,6 @@ const LoginSchema = z.object({
   email: z.string().email({ message: "請輸入您的信箱" }),
   password: z.string().min(6, { message: "請輸入您的密碼" }),
 });
-
 export function Login() {
   const [isOpenErrorModal, setisOpenErrorModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +36,6 @@ export function Login() {
       },
     };
     const apiData = LoginApiSchema.parse(rawData);
-
     fetcher({
       url: "users/sign_in",
       method: "POST",
