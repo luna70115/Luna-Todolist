@@ -100,7 +100,7 @@ export function Register() {
             <Button className="register__button" disabled={isLoading}>
               註冊帳號
             </Button>
-            <Link to={`/login`} className="register__text">
+            <Link to={`/`} className="register__text">
               登入
             </Link>
           </div>
