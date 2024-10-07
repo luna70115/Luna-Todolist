@@ -42,7 +42,6 @@ export function Todolist() {
     ]);
     reset();
   }
-
   function checked(id) {
     setTodolist(
       todolist.map((item) =>
