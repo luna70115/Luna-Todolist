@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,9 +11,20 @@ const TodoSchema = z.object({
 });
 
 export function Todolist() {
-  const [todolist, setTodolist] = useState([]);
+  const [todolist, setTodolist] = useState(() => {
+    const todolistData = localStorage.getItem("todolist");
+    return todolistData ? JSON.parse(todolistData) : [];
+  });
+  const nextId = useRef(
+    (() => {
+      const todolistData = localStorage.getItem("todolist");
+      const parsedData = todolistData ? JSON.parse(todolistData) : [];
+      return parsedData.length === 0
+        ? 1
+        : parsedData[parsedData.length - 1].id + 1;
+    })()
+  );
   const [tab, setTab] = useState("all");
-  const nextId = useRef(1);
   const {
     register,
     handleSubmit,
@@ -46,6 +57,11 @@ export function Todolist() {
     if (tab === "done") return item.checked;
   });
   const length = todolist.filter((item) => !item.checked).length;
+
+  useEffect(() => {
+    localStorage.setItem("todolist", JSON.stringify(todolist));
+  }, [todolist]);
+
   return (
     <>
       <div className="todolist">
